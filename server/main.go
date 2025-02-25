@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"time"
 
 	"connectrpc.com/connect"
 	v1 "github.com/llamerada-jp/trial-connect/proto/v1"
@@ -19,7 +20,15 @@ func main() {
 	mux.Handle(path, handler)
 
 	mux.Handle("/", http.FileServer(http.Dir("static")))
-	err := http.ListenAndServe(":8080", mux)
+
+	go func() {
+		err := http.ListenAndServe(":8080", mux)
+		if err != nil {
+			panic(err)
+		}
+	}()
+
+	err := http.ListenAndServeTLS(":8443", "localhost.crt", "localhost.key", mux)
 	if err != nil {
 		panic(err)
 	}
@@ -39,6 +48,7 @@ func (s *streamImpl) Echo(ctx context.Context, request *connect.Request[v1.Strea
 		if err != nil {
 			return err
 		}
+		time.Sleep(1 * time.Second)
 	}
 
 	return nil

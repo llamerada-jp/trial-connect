@@ -1,2 +1,4 @@
+/localhost.crt
+/localhost.key
 /static/client.wasm
 /static/wasm_exec.js

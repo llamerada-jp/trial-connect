@@ -1,3 +1,4 @@
+SHELL := /bin/bash -o pipefail
 
 .PHONY: serve
 serve: static/client.wasm static/wasm_exec.js
@@ -11,7 +12,10 @@ static/wasm_exec.js:
 
 .PHONY: generate
 generate:
-	buf generate
+	openssl req -x509 -out localhost.crt -keyout localhost.key \
+  -newkey rsa:2048 -nodes -sha256 \
+  -subj '/CN=localhost' -extensions EXT -config <( \
+   printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
 
 .PHONY: setup
 setup:

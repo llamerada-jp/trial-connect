@@ -1,6 +1,12 @@
 # trial-connect
 trials of connect-go
 
+## setup
+
+```sh
+make setup generate
+```
+
 ## start server
 
 ```sh
@@ -15,4 +21,7 @@ go run ./client/
 
 ## wasm client
 
-access http://localhost:8080 and open console by C-Shift-i.
+access and open console by Ctrl-Shift-i
+
+- http/1.1: http://localhost:8080
+- http/2: https://localhost:8443

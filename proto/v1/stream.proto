@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package proto.v1;
+
+option go_package = "github.com/llamerada-jp/trial-connect/proto/v1";
+
+service StreamService {
+  rpc Echo(StreamServiceEchoRequest) returns (stream StreamServiceEchoResponse);
+}
+
+message StreamServiceEchoRequest {
+  string message = 1;
+}
+
+message StreamServiceEchoResponse {
+  string message = 1;
+}

@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package proto.v1;
+
+option go_package = "github.com/llamerada-jp/trial-connect/proto/v1";
+
+service UnaryService {
+  rpc Echo(UnaryServiceEchoRequest) returns (UnaryServiceEchoResponse);
+}
+
+message UnaryServiceEchoRequest {
+  string message = 1;
+}
+
+message UnaryServiceEchoResponse {
+  string message = 1;
+}
